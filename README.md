@@ -42,6 +42,8 @@ what it can't.
 - Event detection with **I-VDT** and an adaptive, noise-relative velocity threshold.
 - Live viewing-distance estimation from iris size; a **positioning step before every test**
   keeps the patient in the protocol zone.
+- **Per-camera intrinsic calibration** from a printable checkerboard: a measured focal
+  length replaces the geometric approximation, and it is stored with every recording.
 
 **Honest quality control** — the system prefers "not measurable" to a plausible wrong number:
 
@@ -77,7 +79,9 @@ test recordings — no patient data.*
 - **One source of truth.** Every chart is drawn from exactly the series its number was
   computed from.
 - **Provenance by default.** A recording describes the stimulus that was actually shown,
-  not the operator's intent.
+  not the operator's intent — including the presentation timing and the camera it was
+  shot with. Re-analysis reads those, so a result is a function of the recording rather
+  than of the settings that happen to be open.
 - **Privacy.** Anonymised identifiers in files and reports; patient data never leave the
   local machine.
 
@@ -87,20 +91,36 @@ test recordings — no patient data.*
   reported for reference only.
 - No head fixation: head movement is compensated for translation, not yet for rotation.
 - Vestibulo-ocular reflex testing is not supported.
-- Absolute angular accuracy depends on camera focal length; per-camera calibration is on the roadmap.
+- Absolute angular accuracy depends on the camera's focal length. Per-camera calibration
+  is now available and strongly recommended; without it, distances carry a systematic error.
 - **Not a medical device.** Research use only; not for clinical diagnosis.
 
 ## Roadmap
+
+**Done**
 
 - [x] Patient / visit / examination workflow and per-visit reports
 - [x] Per-visit 9-point calibration; calibration-free anatomical model
 - [x] Tracking-quality and viewing-distance control
 - [x] Standardised test protocol (40 cm) with recorded provenance
-- [ ] Camera intrinsic calibration (checkerboard)
+- [x] Camera intrinsic calibration from a checkerboard
+- [x] Settings for the measurement setup: camera, screen, calibration profiles
+- [x] Single analysis path shared by preview, report and export, under a bit-exact
+      regression baseline
+- [x] Research dataset export — one method version per table
+- [x] Reference-interval algorithm for device-specific norms
+
+**Next**
+
+- [ ] Optokinetic stimulus: parameter study for a monitor-sized field
+- [ ] Clinical labelling of examinations — before data collection starts
+- [ ] Structured clinical conclusion assembled from templates, physician-approved
+- [ ] Pilot on healthy volunteers (test–retest), ruler check of the distance estimate
+- [ ] Device-specific normative data from the first labelled cohort
 - [ ] Stimulus defined in degrees, adapted to the measured viewing distance
-- [ ] Frame-rate-independent filtering (time-based windows)
-- [ ] Encrypted storage and pilot validation study
-- [ ] Device-specific normative data
+- [ ] Interface design pass and English localisation
+- [ ] Encrypted storage; ethics-committee documentation
+- [ ] Packaging for distribution
 
 ## Research
 
